@@ -1,3 +1,4 @@
+#completed challenge
 def ftoc temp
   celcius = (temp - 32) * (5.0/9)
 end

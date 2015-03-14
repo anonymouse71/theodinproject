@@ -1,3 +1,4 @@
+#completed challenge
 def translate words
   vowels = %w{a e i o u}
   consonants = ('a'..'z').to_a - vowels

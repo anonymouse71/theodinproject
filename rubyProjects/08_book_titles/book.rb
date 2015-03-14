@@ -1,3 +1,4 @@
+#completed challenge
 class Book
   attr_accessor :title
 

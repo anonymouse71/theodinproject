@@ -77,6 +77,7 @@ end
 # once the above tests pass,
 # write tests and code for the following:
 
+# Test have been added!
 describe "#multiply" do
 
   it "multiplies two numbers" do

@@ -1,25 +1,19 @@
 #create a cipher shifts the output n times.
 
 def caesar_cipher sentence, num
-  upper_letters = ("A".ord.."Z".ord).to_a
-  lower_letters = ("a".ord.."z".ord).to_a
-  output = ""
+  alphabet = ('a'..'z').to_a + %w{a b c}
+  p alphabet
+  encrypted_sentence = []
+  chars = sentence.downcase.split("")
 
-  text.split("").each do |char|
-    new_char = char
-    if char.scan(/\w/).length > 0
-      if char.upcase == char
-        new_char_idx = (upper_letters.index(char.ord) + num) % 26
-        new_char = upper_letters[new_char_idx].chr
-      else
-        new_char_idx = (lower_letters.index(char.ord) + num) % 26
-        new_char = lower_letters[new_char_idx].chr
-      end
+  chars.each do |char|
+    if alphabet.include?(char)
+      encrypted_sentence.push(alphabet[alphabet.index(char) + num])
+    else
+      encrypted_sentence.push(char)
     end
-    output += new_char
   end
-
-  output 
+  encrypted_sentence.join.capitalize!!
 end
 
 p caesar_cipher("What a string!", 5)

@@ -50,6 +50,15 @@ module Enumerable
     return false
   end
 
+  def my_count arg=0
+    if block_given?
+      self.my_select{|i| yield(i)}.length
+    elsif arg != 0
+      self.select{|i| i == arg}.length
+    else
+      self.size
+    end
+  end
 end
 
 #p [1,2,3].my_each {|x| p x}
@@ -57,8 +66,11 @@ end
 #p (1..5).to_a.my_select {|x| x % 2 == 0}
 #p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
 #p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
-p %w{ant bear cat}.none? { |word| word.length == 5 } #=> true
-p %w{ant bear cat}.none? { |word| word.length >= 4 } #=> false
-p [].none?                                           #=> true
-p [nil].none?                                        #=> true
-p [nil, false].none?                                 #=> true
+#p %w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
+#p %w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
+#p [].my_none?                                           #=> true
+#p [nil].my_none?                                        #=> true
+#p [nil, false].my_none?                                 #=> true
+#p [1,2,3,3].my_count                 #=> 4
+#p [1,2,3,3].my_count(3)              #=> 2
+#p [1,2,3,3].my_count{|x| x > 1}      #=> 3

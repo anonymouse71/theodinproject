@@ -41,6 +41,15 @@ module Enumerable
     return false
   end
 
+  def my_none?
+    return true if self.empty?
+
+    self.my_each do |i|
+      return true if yield(i)
+    end
+    return false
+  end
+
 end
 
 #p [1,2,3].my_each {|x| p x}
@@ -48,3 +57,8 @@ end
 #p (1..5).to_a.my_select {|x| x % 2 == 0}
 #p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
 #p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
+p %w{ant bear cat}.none? { |word| word.length == 5 } #=> true
+p %w{ant bear cat}.none? { |word| word.length >= 4 } #=> false
+p [].none?                                           #=> true
+p [nil].none?                                        #=> true
+p [nil, false].none?                                 #=> true

@@ -67,6 +67,18 @@ module Enumerable
     end
     items
   end
+
+  def my_inject input=0
+    result = input
+    self.my_each do |i|
+      result = yield(result, i)
+    end
+    result
+  end
+
+  def multiply_els
+    self.my_inject(1){|product, n| product * n}
+  end
 end
 
 #p [1,2,3].my_each {|x| p x}
@@ -83,3 +95,5 @@ end
 #p [1,2,3,3].my_count(3)              #=> 2
 #p [1,2,3,3].my_count{|x| x > 1}      #=> 3
 #p [1,2,3].my_map {|x| x*2 }
+#p [1,2,3].my_inject {|sum, n| sum + n}     #=> 6
+#p [2,4,5].multiply_els               #=> 40

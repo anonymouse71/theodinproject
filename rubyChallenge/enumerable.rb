@@ -59,6 +59,14 @@ module Enumerable
       self.size
     end
   end
+
+  def my_map
+    items = []
+    self.my_each do |i|
+      items << yield(i)
+    end
+    items
+  end
 end
 
 #p [1,2,3].my_each {|x| p x}
@@ -74,3 +82,4 @@ end
 #p [1,2,3,3].my_count                 #=> 4
 #p [1,2,3,3].my_count(3)              #=> 2
 #p [1,2,3,3].my_count{|x| x > 1}      #=> 3
+#p [1,2,3].my_map {|x| x*2 }

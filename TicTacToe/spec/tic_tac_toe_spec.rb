@@ -43,4 +43,40 @@ module TicTacToe
       end
     end
   end
+
+  describe Board do
+    context "#initialize" do 
+      it "initialized the board with a grid" do
+        expect { Board.new(grid: "grid")}.to_not raise_error
+      end
+
+      it "sets a grid with 3 rows by default" do
+        board = Board.new
+        expect(board.grid.size).to eq(3)
+      end
+
+      it "creates 3 items for each row by default" do
+        board = Board.new
+        board.grid.each do |row|
+          expect(row.size).to eq(3)
+        end
+      end
+    end
+
+    context "#grid" do
+      it "returns the grid" do
+        board = Board.new(grid: "blah")
+        expect(board.grid).to eq("blah")
+      end
+    end
+
+    context "#get_cell" do
+      it "returns cell based off x,y coordinates" do
+        grid = [["", "", ""],["", "", "ed"],["", "", ""]]
+        board = Board.new(grid: grid)
+        expect(board.get_cell(1,2)).to eq("ed")
+      end
+    end
+  end
+
 end

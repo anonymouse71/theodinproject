@@ -44,3 +44,10 @@ end
 
 Foo.who_am_i?
 
+# What are three ways to invoke a method in ruby?
+# DotOperator, Send, and Call:
+object = Object.new
+
+p object.object_id
+p object.send(:object_id)
+p object.method(:object_id).call

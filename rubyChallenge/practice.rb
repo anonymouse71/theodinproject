@@ -29,3 +29,18 @@ module ANamespace
 end
 
 ANamespace::AClass.new
+
+# Modules also provide a mechanism for multile inheritance via MixIn, but modules can't he instantiated.
+
+module MixIn
+  def who_am_i?
+    puts "I am a mixin method"
+  end
+end
+# String is already the parent class
+class Foo < String
+  extend MixIn
+end
+
+Foo.who_am_i?
+

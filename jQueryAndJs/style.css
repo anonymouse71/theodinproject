@@ -1,0 +1,15 @@
+#container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.square {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+
+  height: 20px;
+  width: 20px;
+  background-color: yellow;
+  border: 1px solid black;
+}

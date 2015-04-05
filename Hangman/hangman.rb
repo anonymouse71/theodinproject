@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Hangman
   class Game
     attr_reader :board, :secret_word, :missed_words, :guess_count
@@ -20,6 +22,7 @@ module Hangman
 
     def guess!
       user_input = View.get_guess
+      return save_game! if user_input == ":w"
       if @secret_word.include?(user_input)
         @board[@secret_word.index(user_input)] = user_input
       else
@@ -38,6 +41,14 @@ module Hangman
         guess!
       end
       View.game_over! @secret_word
+    end
+
+    def save_game!
+      View.save
+      Dir.mkdir 'game_data' unless Dir.exist? 'game_data'
+      filename = 'game_data/data.yaml'
+      File.open(filename,'w'){|file| file.puts YAML.dump self}
+      exit
     end
   end
 end
@@ -58,8 +69,15 @@ module Hangman
       puts "Sorry you lose! the word was #{secret_word}"
     end
 
+    def self.save
+      puts "\e[H\e[2J"
+      puts "Game has been saved. Thanks!"
+    end
+
     def self.render_board game_board
       puts "\e[H\e[2J"
+      puts "You can save the game state by typing ':w'."
+      puts
       game_board.each {|char| print "#{char} "}
       puts
     end

@@ -24,7 +24,7 @@ module Hangman
       user_input = View.get_guess
       return save_game! if user_input == ":w"
       if @secret_word.include?(user_input)
-        @board[@secret_word.index(user_input)] = user_input
+        #todo previous method does not replace all characters just one
       else
         @missed_words << user_input
         @guess_count +=1
@@ -62,7 +62,9 @@ module Hangman
     end
 
     def self.congratulations!
+      puts "\e[H\e[2J"
       puts "Ding Ding! We have a winner! Thanks for playing..."
+      exit
     end
 
     def self.game_over! secret_word

@@ -34,11 +34,11 @@ module Hangman
     end
 
     def play!
-      View.greeting
+      user_input = View.greeting
+      load_game! if user_input == "y"
       until @guess_count > 9
         return View.congratulations! if @board.none?{|char| char  == "_"}
         View.render_board @board
-        puts @secret_word
         View.render_missed_words @missed_words
         View.render_guess_count @guess_count
         guess!
@@ -53,6 +53,11 @@ module Hangman
       File.open(filename,'w'){|file| file.puts YAML.dump self}
       exit
     end
+
+    def load_game!
+      game_data = File.open('game_data/data.yaml', "r") {|file| file.read}
+      YAML.load(game_data)
+    end
   end
 end
 
@@ -62,6 +67,8 @@ module Hangman
       puts
       puts "Welcome to Hangman!"
       puts
+      puts "Would you like to load your previous game? (y/n): "
+      input = gets.chomp
     end
 
     def self.congratulations!

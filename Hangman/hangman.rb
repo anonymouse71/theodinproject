@@ -24,7 +24,9 @@ module Hangman
       user_input = View.get_guess
       return save_game! if user_input == ":w"
       if @secret_word.include?(user_input)
-        #todo previous method does not replace all characters just one
+        char = @secret_word.split("")
+        result = char.each_index.select {|index| char[index] == user_input }
+        result.each {|index| @board[index]= user_input}
       else
         @missed_words << user_input
         @guess_count +=1
@@ -33,9 +35,10 @@ module Hangman
 
     def play!
       View.greeting
-      return View.congratulations! if @board.none?{|c|c == "_"}
       until @guess_count > 9
+        return View.congratulations! if @board.none?{|char| char  == "_"}
         View.render_board @board
+        puts @secret_word
         View.render_missed_words @missed_words
         View.render_guess_count @guess_count
         guess!

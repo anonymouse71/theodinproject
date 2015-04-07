@@ -41,6 +41,7 @@ class MicroBlogger
       when 't' then tweet parts[1..-1].join(" ")
       when 'dm' then dm parts[1], parts[2..-1].join(" ")
       when 'sf' then spam_my_followers parts[1..-1].join(" ")
+      when 'latest' then everyones_latest_tweet
       else puts "Sorry '#{command}' is not a valid command!"
       end
     end
@@ -57,8 +58,22 @@ class MicroBlogger
     puts "Messages have been sent to your followers!"
   end
 
+  def everyones_latest_tweet
+    friends = @client.friends.sort_by {|friend| friend.screen_name.downcase}
+
+    friends.each do |friend|
+      timestamp = friend.status.created_at
+      time_string = timestamp.strftime("%A, %b %d")
+      status = friend.status.text
+
+      puts "#{friend.screen_name} said this on #{time_string}..."
+      puts status
+      puts "" #blank line to separate people
+    end
+  end
+
 end
 
-  microblog = MicroBlogger.new
-  #microblog.tweet "MicroBlogger has been initialized. This message has been sent via JumpStarts' API."
-  microblog.run
+microblog = MicroBlogger.new
+#microblog.tweet "MicroBlogger has been initialized. This message has been sent via JumpStarts' API."
+microblog.run

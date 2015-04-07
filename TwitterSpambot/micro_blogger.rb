@@ -19,13 +19,17 @@ class MicroBlogger
 
   def run
     puts "Welcome to the JSL Twitter Client!"
-    command = ""
+    command = ''
     while command != 'q'
       printf "Enter command:> "
-      command = gets.chomp
+      input = gets.chomp.split
+      command = input.shift
+      message = input.join(" ")
 
       case command
       when 'q' then puts "Goodbye"
+      when 't'
+        p message
       else puts "Sorry '#{command}' is not a valid command!"
       end
     end

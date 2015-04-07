@@ -19,8 +19,12 @@ class MicroBlogger
 
   def dm target, message
     puts "Trying to send a message to #{target}!"
-    new_message = "@#{target} #{message}"
-    tweet new_message
+    if follower_list.include? target
+      new_message = "@#{target} #{message}"
+      tweet new_message
+    else
+      puts "Sorry you can only 'dm' people who follow you"
+    end
   end
 
   def run
@@ -36,10 +40,23 @@ class MicroBlogger
       when 'q' then puts "Goodbye"
       when 't' then tweet parts[1..-1].join(" ")
       when 'dm' then dm parts[1], parts[2..-1].join(" ")
+      when 'sf' then spam_my_followers parts[1..-1].join(" ")
       else puts "Sorry '#{command}' is not a valid command!"
       end
     end
   end
+
+  def follower_list
+    screen_names = @client.followers.collect { |follower| @client.user(follower).screen_name }
+    screen_names[0..9] #Grabs first 10 names
+  end
+
+  def spam_my_followers message
+    p message
+    follower_list.each {|follower| dm(follower, message)}
+    puts "Messages have been sent to your followers!"
+  end
+
 end
 
   microblog = MicroBlogger.new

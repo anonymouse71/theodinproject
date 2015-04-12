@@ -19,4 +19,12 @@ def append array, n
   append(array, n-1)
 end
 
+def reverse_append array, n
+  return array if n < 0
+  reverse_append(array, n-1)
+  array << n
+  array
+end
+
 p append([], 2)
+p reverse_append([], 2)

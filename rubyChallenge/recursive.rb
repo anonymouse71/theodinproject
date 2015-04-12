@@ -39,3 +39,27 @@ end
 #p factorial 4
 
 # Define a recursive function that returns true if a string is a palindrome and false otherwise
+
+def palindrome(string)
+  if string.length == 1 || string.length == 0
+    true
+  else
+    if string[0] == string[-1]
+      palindrome(string[1..-2])
+    else
+      false
+    end
+  end
+end
+
+#p palindrome 'anna'
+
+# Define a recursive function that takes an argument n and prints "n bottles of beer on the wall", "(n-1) bottles of beer on the wall", ..., "no more bottles of beer on the wall".
+
+def bottles_on_the_wall n
+  return "no more bottles of beer on the wall" if  n == 0
+  puts "#{n} bottles of beers on the wall"
+  bottles_on_the_wall(n-1)
+end
+
+p bottles_on_the_wall 5

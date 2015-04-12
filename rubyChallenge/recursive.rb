@@ -26,5 +26,16 @@ def reverse_append array, n
   array
 end
 
-p append([], 2)
-p reverse_append([], 2)
+#p append([], 2)
+#p reverse_append([], 2)
+
+# Define a recursive function that finds the factorial of a number.
+
+def factorial n
+  return 1 if n == 0
+  return n * factorial(n-1)
+end
+
+#p factorial 4
+
+# Define a recursive function that returns true if a string is a palindrome and false otherwise

@@ -1,0 +1,32 @@
+<!--
+<form action="/users" method="post" accept-charset="utf-8">
+name: <input type="text" value="" name="user[name]" id="name"/> <br>
+email: <input type="text" value="" name="user[email]" id="email"/> <br>
+password: <input type="text" value="" name="user[password]" id="email"/>
+
+<input type="hidden" value="<%= form_authenticity_token %>" name="authenticity_token" id=""/>
+<p><input type="submit" value="Continue →"></p>
+</form> -->
+
+<!-- <%= form_tag("/users", method:"post") do %>
+  <%= label_tag(:user, "username:") %>
+  <%= text_field_tag(:user) %><br>
+
+  <%= label_tag(:email, "email:") %>
+  <%= text_field_tag(:email) %><br>
+
+  <%= label_tag(:password, "password:") %>
+  <%= password_field_tag(:password) %><br>
+
+  <%= submit_tag("Submit") %>
+<% end %> -->
+
+<%= form_for @user do |f| %>
+  <%= f.label :name, "name" %>
+  <%= f.text_field :name %><br>
+  <%= f.label :email, "email" %>
+  <%= f.text_field :email %><br>
+  <%= f.label :password, "password" %>
+  <%= f.password_field :password %><br>
+  <%= f.submit "submit", :disable_with => 'submiting...' %>
+<% end %>
